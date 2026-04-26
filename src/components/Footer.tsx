@@ -116,16 +116,14 @@ export function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 w-full">
             <div className="flex items-center gap-2">
               <Zap className="w-6 h-6 text-accent-cyan" />
               <span className="font-display text-lg font-bold">NEXA</span>
             </div>
-            
             <p className="text-sm text-gray-500">
               © 2026 NEXA. All rights reserved.
             </p>
-            
             <div className="flex items-center gap-4">
               <a href="#" className="p-2 rounded-full hover:bg-white/5 transition-colors">
                 <Twitter className="w-5 h-5 text-gray-400" />
@@ -137,6 +135,20 @@ export function Footer() {
                 <Youtube className="w-5 h-5 text-gray-400" />
               </a>
             </div>
+          </div>
+          {/* Designer/Developer Credit */}
+          <div className="mt-4 text-center">
+            <span className="text-xs text-gray-400">
+              Designed and Developed by{' '}
+              <a
+                href="#" // TODO: Update with your portfolio link
+                className="underline hover:text-accent-cyan transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Nabeel Choudhuri
+              </a>
+            </span>
           </div>
         </div>
       </div>
