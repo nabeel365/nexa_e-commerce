@@ -137,17 +137,17 @@ export function Footer() {
             </div>
           </div>
           {/* Designer/Developer Credit */}
-          <div className="mt-4 text-center">
-            <span className="text-xs text-gray-400">
-              Designed and Developed by{' '}
-              <a
-                href="#" // TODO: Update with your portfolio link
-                className="underline hover:text-accent-cyan transition-colors"
+          <div className="mt-8 text-center pt-8 border-t border-white/5">
+            <span className="text-sm text-gray-400">
+              Designed & Developed by{' '}
+              <Link
+                href="https://nabeelsdevhub.com"
+                className="font-medium text-white hover:text-accent-cyan transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Nabeel Choudhuri
-              </a>
+              </Link>
             </span>
           </div>
         </div>

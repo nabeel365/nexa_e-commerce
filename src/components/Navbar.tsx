@@ -11,7 +11,8 @@ import {
   Menu, 
   X,
   Zap,
-  ChevronDown
+  ChevronDown,
+  Home
 } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { categories } from '@/data/products';
@@ -58,6 +59,13 @@ export function Navbar() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-8">
+              <Link
+                href="/"
+                className="text-sm font-medium text-gray-300 hover:text-accent-cyan transition-colors relative group"
+              >
+                Home
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-cyan transition-all group-hover:w-full" />
+              </Link>
               {categories.slice(0, 4).map((category) => (
                 <Link
                   key={category.id}
@@ -166,6 +174,14 @@ export function Navbar() {
             className="fixed top-20 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-b border-white/5 md:hidden"
           >
             <div className="px-4 py-6 space-y-4">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 py-2 text-lg font-medium text-gray-300 hover:text-white transition-colors"
+              >
+                <Home className="w-5 h-5 text-accent-cyan" />
+                Home
+              </Link>
               {categories.map((category) => (
                 <Link
                   key={category.id}

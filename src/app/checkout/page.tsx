@@ -15,7 +15,7 @@ import {
 import { useStore } from '@/store/useStore';
 
 export default function CheckoutPage() {
-  const { cart, getCartTotal, clearCart } = useStore();
+  const { cart, getCartTotal, clearCart, addNotification } = useStore();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     email: '',
@@ -45,8 +45,12 @@ export default function CheckoutPage() {
       setStep(step + 1);
     } else {
       // Process payment
-      alert('Order placed successfully!');
+      addNotification('Order placed successfully! Check your email for details.', 'success');
       clearCart();
+      // Redirect to home or account
+      setTimeout(() => {
+        window.location.href = '/account';
+      }, 2000);
     }
   };
 

@@ -14,7 +14,8 @@ interface ProductCardProps {
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useStore();
+  const [isAdded, setIsAdded] = useState(false);
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addNotification } = useStore();
   
   const inWishlist = isInWishlist(product.id);
   const discount = product.originalPrice 
@@ -25,6 +26,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, 1, product.colors?.[0], product.sizes?.[0]);
+    addNotification(`${product.name} added to cart!`, 'success');
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000);
   };
 
   const handleWishlist = (e: React.MouseEvent) => {
@@ -32,8 +36,10 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     e.stopPropagation();
     if (inWishlist) {
       removeFromWishlist(product.id);
+      addNotification('Removed from wishlist', 'info');
     } else {
       addToWishlist(product.id);
+      addNotification('Added to wishlist!', 'success');
     }
   };
 
@@ -95,10 +101,23 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           >
             <button
               onClick={handleAddToCart}
-              className="flex-1 py-3 bg-white rounded-full font-medium text-black flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors"
+              className={`flex-1 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
+                isAdded 
+                  ? 'bg-accent-cyan text-black scale-105 shadow-[0_0_20px_rgba(0,255,255,0.4)]' 
+                  : 'bg-white text-black hover:bg-gray-100'
+              }`}
             >
-              <ShoppingBag className="w-4 h-4" />
-              Add to Cart
+              {isAdded ? (
+                <>
+                  <Zap className="w-4 h-4 fill-current" />
+                  Added!
+                </>
+              ) : (
+                <>
+                  <ShoppingBag className="w-4 h-4" />
+                  Add to Cart
+                </>
+              )}
             </button>
             <Link
               href={`/product/${product.id}`}

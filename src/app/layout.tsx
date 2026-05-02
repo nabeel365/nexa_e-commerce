@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Orbitron } from 'next/font/google';
 import '@/styles/globals.css';
 import { Providers } from './providers';
+import { ToastContainer } from '@/components/ToastContainer';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground antialiased">
         <Providers>
           {children}
+          <ToastContainer />
         </Providers>
       </body>
     </html>

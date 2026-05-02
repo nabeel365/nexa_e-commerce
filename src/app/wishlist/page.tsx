@@ -9,7 +9,7 @@ import { useStore } from '@/store/useStore';
 import { ProductCard } from '@/components/ProductCard';
 
 export default function WishlistPage() {
-  const { wishlist, removeFromWishlist } = useStore();
+  const { wishlist, removeFromWishlist, addNotification } = useStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -66,7 +66,10 @@ export default function WishlistPage() {
               >
                 <ProductCard product={product} index={index} />
                 <button
-                  onClick={() => removeFromWishlist(product.id)}
+                  onClick={() => {
+                    removeFromWishlist(product.id);
+                    addNotification(`${product.name} removed from wishlist`, 'info');
+                  }}
                   className="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center hover:bg-red-500 transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />

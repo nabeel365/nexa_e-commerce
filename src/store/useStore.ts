@@ -59,6 +59,11 @@ interface AppState {
   setPriceRange: (range: [number, number]) => void;
   sortBy: string;
   setSortBy: (sort: string) => void;
+
+  // Notifications
+  notifications: { id: string; message: string; type: 'success' | 'info' | 'error' }[];
+  addNotification: (message: string, type?: 'success' | 'info' | 'error') => void;
+  removeNotification: (id: string) => void;
 }
 
 const initialUser: UserState = {
@@ -177,6 +182,23 @@ export const useStore = create<AppState>()(
       setPriceRange: (range) => set({ priceRange: range }),
       sortBy: 'featured',
       setSortBy: (sort) => set({ sortBy: sort }),
+
+      // Notifications
+      notifications: [],
+      addNotification: (message, type = 'success') => {
+        const id = Math.random().toString(36).substring(7);
+        set((state) => ({
+          notifications: [...state.notifications, { id, message, type }],
+        }));
+        setTimeout(() => {
+          get().removeNotification(id);
+        }, 3000);
+      },
+      removeNotification: (id) => {
+        set((state) => ({
+          notifications: state.notifications.filter((n) => n.id !== id),
+        }));
+      },
     }),
     {
       name: 'nexa-store',

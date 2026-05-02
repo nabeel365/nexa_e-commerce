@@ -34,7 +34,8 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || '');
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
-  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addToRecentlyViewed } = useStore();
+  const [isAdded, setIsAdded] = useState(false);
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist, addToRecentlyViewed, addNotification } = useStore();
 
   useEffect(() => {
     if (product) {
@@ -62,6 +63,9 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     addToCart(product, quantity, selectedColor, selectedSize);
+    addNotification(`${product.name} added to cart!`, 'success');
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000);
   };
 
   return (
@@ -254,13 +258,34 @@ export default function ProductPage() {
             <div className="flex gap-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 py-4 bg-gradient-to-r from-accent-cyan to-accent-purple rounded-full font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                className={`flex-1 py-4 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
+                  isAdded 
+                    ? 'bg-accent-green text-black scale-105 shadow-[0_0_20px_rgba(34,197,94,0.4)]' 
+                    : 'bg-gradient-to-r from-accent-cyan to-accent-purple text-white hover:opacity-90'
+                }`}
               >
-                <ShoppingBag className="w-5 h-5" />
-                Add to Cart
+                {isAdded ? (
+                  <>
+                    <Check className="w-5 h-5" />
+                    Added to Cart!
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-5 h-5" />
+                    Add to Cart
+                  </>
+                )}
               </button>
               <button
-                onClick={() => inWishlist ? removeFromWishlist(product.id) : addToWishlist(product.id)}
+                onClick={() => {
+                  if (inWishlist) {
+                    removeFromWishlist(product.id);
+                    addNotification('Removed from wishlist', 'info');
+                  } else {
+                    addToWishlist(product.id);
+                    addNotification('Added to wishlist!', 'success');
+                  }
+                }}
                 className={`p-4 rounded-full border transition-colors ${
                   inWishlist
                     ? 'border-accent-pink bg-accent-pink/10 text-accent-pink'

@@ -304,7 +304,7 @@ export const products: Product[] = [
 ];
 
 export const categories = [
-  { id: 'tshirts', name: 'T-Shirts', icon: 'Shirt', count: 12 },
+  { id: 't-shirts', name: 'T-Shirts', icon: 'Shirt', count: 12 },
   { id: 'headphones', name: 'Headphones', icon: 'Headphones', count: 8 },
   { id: 'speakers', name: 'Speakers', icon: 'Speaker', count: 6 },
   { id: 'accessories', name: 'Accessories', icon: 'Watch', count: 15 },
